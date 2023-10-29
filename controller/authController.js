@@ -47,7 +47,7 @@ export const register = async(req,res)=>{
         }
         
     } catch (error) {
-        res.status(400).json({message:'somthing went wrong'})
+        res.status(404).json({message:'Resources not found'})
     }
 }
 
@@ -76,13 +76,13 @@ export const login = async(req,res)=>{
                    }
                 res.status(200).json({message:'successfully logined',tokens})
             }else{
-                res.status(409).json({message:'incorrect password'})
+                res.status(401).json({message:'incorrect password'})
             }
             
         }else{
-            res.status(409).json({message:'Invalid email'})
+            res.status(401).json({message:'Invalid email'})
         }
     } catch (error) {
-        res.status(400).json({message:'somthing went wrong'})
+        res.status(404).json({message:'Resources not found'})
     }
 }

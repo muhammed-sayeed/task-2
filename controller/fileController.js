@@ -15,7 +15,8 @@ const BUCKET = 's3-nodejs6225'
 
 export const fileUpload = async(req,res)=>{
 
-    const params = {
+    try {
+      const params = {
         Bucket: BUCKET,
         Key: req.file.originalname,
         Body: req.file.buffer,
@@ -23,21 +24,32 @@ export const fileUpload = async(req,res)=>{
       s3.upload(params, (err, data) => {
         if (err) {
           console.error(err);
-          return res.status(500).send('Error uploading file');
+          return res.status(500).json({message:'Error uploading file'});
         }
     
-        res.send('File uploaded successfully');
+        res.status(200).json({message:'File uploaded successfully'});
       });
+    } catch (error) {
+       res.status(404).json({message:"Resources not found"})
+    }
 }
 
 export const listFiles = async(req,res)=>{
-   let result = await s3.listObjectsV2({Bucket:BUCKET}).promise()
-   let data = result.Contents.map(item => item.Key)
-   res.send(data)
+  try {
+    let result = await s3.listObjectsV2({Bucket:BUCKET}).promise()
+    let data = result.Contents.map(item => item.Key)
+    res.json({message:"data fetched successfully",data})
+  } catch (error) {
+    res.status(404).json({message:"Resources not found"})
+  }
 }
 
 export const deleteFile = async(req,res)=>{
-    const filename = req.params.filename
+    try {
+      const filename = req.params.filename
     await s3.deleteObject({Bucket:BUCKET,Key:filename}).promise()
-    res.send('file deleted successfully')
+    res.status(200).json({message:'file deleted successfully'})
+    } catch (error) {
+      res.status(404).json({message:"Resources not found"})
+    }
 }
