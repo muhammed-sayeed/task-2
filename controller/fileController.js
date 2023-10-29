@@ -2,8 +2,6 @@ import AWS from 'aws-sdk'
 import dotenv from 'dotenv'
 
 dotenv.config()
-
-console.log('dredentials',process.env.ACCESS_SECRET);
 AWS.config.update({
     accessKeyId: process.env.ACCES_KEY,
     secretAccessKey: process.env.ACCES_SECRET ,
