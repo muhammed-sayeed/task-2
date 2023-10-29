@@ -6,12 +6,21 @@ dotenv.config()
 
 const routes = express.Router()
 
+const fileFilter = (req,file,cb)=>{
+    const allowTypes = ['image/jpeg', 'image/png', 'video/mp4', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+    if(allowTypes.includes(file.mimetype)){
+        cb(null,true)
+    }else{
+        cb(new Error('Invalid file type. Only image (JPEG, PNG), video (MP4), and documents (PDF, DOC, DOCX) are allowed.'))
+    }
+}
 
 const upload = multer({
     storage: multer.memoryStorage(),
     limits: {
       fileSize: 5 * 1024 * 1024, // limit file size to 5MB
     },
+    fileFilter: fileFilter
   });
 
 
