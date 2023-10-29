@@ -12,6 +12,24 @@ POST http://localhost:3000/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email":"nasri@gmail.com",
+    "email":"nas@gmail.com",
     "password":"123321"
+}
+
+###
+GET http://localhost:3000/profile HTTP/1.1
+Content-Type: application/json
+
+{
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hc3Jpbm5uIiwiZW1haWwiOiJuYXNAZ21haWwuY29tIiwiaWF0IjoxNjk4NTc2NDgxLCJleHAiOjE2OTg1NzczODF9.LiGhvNWhhpsfvcUwTWQhM6p2HH5ldwowSiQwSiMLxxM"
+}
+
+###
+PATCH  http://localhost:3000/editprofile HTTP/1.1
+Content-Type: application/json
+
+{
+     "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hc3JpbiIsImVtYWlsIjoibmFzcmlAZ21haWwuY29tIiwiaWF0IjoxNjk4NTc1NTUyLCJleHAiOjE2OTg1NzY0NTJ9.JDAz6fLUbzUFroqGmKBOeNf4_vdhzSDVgIoSGqePHnc",
+     "username":"nasrinnn",
+     "email":"nas@gmail.com"
 }

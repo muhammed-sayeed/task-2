@@ -2,6 +2,8 @@ import express from 'express'
 import multer from 'multer'
 import dotenv from 'dotenv'
 
+import { tokenCheck } from '../middlwares/authenticate.js'
+
 dotenv.config()
 
 const routes = express.Router()
@@ -24,17 +26,18 @@ const upload = multer({
   });
 
 
-import { register } from '../controller/authController.js'
-import { login } from '../controller/authController.js'
-import { fileUpload } from '../controller/fileController.js'
-import { listFiles } from '../controller/fileController.js'
-import { deleteFile } from '../controller/fileController.js'
+import { register, login } from '../controller/authController.js'
+import { fileUpload, listFiles, deleteFile } from '../controller/fileController.js'
+import { profile, editProfile } from '../controller/profileController.js'
+
 
 routes.post('/register',register)
 routes.post('/login',login)
-routes.post('/upload',upload.single("file"),fileUpload)
-routes.get('/list',listFiles)
-routes.delete('/delete/:filename',deleteFile)
+routes.post('/upload',tokenCheck,upload.single("file"),fileUpload)
+routes.get('/list',tokenCheck,listFiles)
+routes.delete('/delete/:filename',tokenCheck,deleteFile)
+routes.get('/profile',tokenCheck,profile)
+routes.patch('/editprofile',tokenCheck,editProfile)
 
 export default routes
 

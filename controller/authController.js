@@ -74,15 +74,7 @@ export const login = async(req,res)=>{
                        access:accessToken,
                        refresh:refreshToken
                    }
-                   jsonwebtoken.verify(accessToken,process.env.access_secret,function(err,decoded){
-                    if(err){
-                        console.log(err);
-                        return res.status(401).json({"error":true,"message":'unauthorized access'})
-             }else{
                 res.status(200).json({message:'successfully logined',tokens})
-             }
-            })
-                  
             }else{
                 res.status(409).json({message:'incorrect password'})
             }
