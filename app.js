@@ -3,9 +3,11 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 
+dotenv.config()
+
 import routes from './router/routes.js'
 
-dotenv.config()
+
 const app = express()
 
 
